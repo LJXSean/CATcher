@@ -19,7 +19,7 @@ export class NewIssueComponent implements OnInit {
   isFormPending = false;
   submitButtonText: string;
   filteredOptions: Observable<string[]>;
-  options: string[];
+  private options: string[];
 
   constructor(
     private issueService: IssueService,
@@ -86,7 +86,7 @@ export class NewIssueComponent implements OnInit {
   }
 
   private getTitles() {
-    if (this.issueService === undefined) {
+    if (!this.issueService) {
       this.options = [];
       return;
     }
