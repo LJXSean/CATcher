@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { finalize, startWith, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { finalize, map, startWith } from 'rxjs/operators';
 import { Issue } from '../../core/models/issue.model';
 import { ErrorHandlingService } from '../../core/services/error-handling.service';
 import { IssueService } from '../../core/services/issue.service';
@@ -86,7 +86,12 @@ export class NewIssueComponent implements OnInit {
   }
 
   private getTitles() {
-    return this.issueService.getIssueTitles().subscribe((titles: string[]) => (this.options = titles));
+    if (this.issueService === undefined) {
+      this.options = [];
+      return;
+    }
+
+    this.issueService.getIssueTitles().subscribe((titles: string[]) => (this.options = titles));
   }
 
   get title() {
