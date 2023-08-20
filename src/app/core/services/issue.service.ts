@@ -293,13 +293,6 @@ export class IssueService {
     );
   }
 
-  /**
-   * Obtain an observable containing an array of issues titles ordered by latest ID first
-   */
-  getIssueTitles(): Observable<string[]> {
-    return this.issues$.pipe(map((issues) => issues.map((issue) => issue.title).reverse()));
-  }
-
   reset(resetSessionId: boolean) {
     if (resetSessionId) {
       this.sessionId = undefined;
